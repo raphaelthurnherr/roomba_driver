@@ -1,0 +1,30 @@
+//#include "stdafx.h"
+#include <Windows.h>
+#include <stdio.h>
+#include <string.h>
+
+#include "serial.h"
+
+int main(void)
+{
+    char myMessage[64];
+    char myReceivedData[64];
+    int count=0;
+
+    
+    printf_s("\n\nEnter your message: ");
+    scanf_s("%s", myMessage, (unsigned)_countof(myMessage));
+    serial_init("COM10", 9600);
+    serial_write(myMessage);
+    count=serial_read(myReceivedData);
+    printf("RECEIVED CHAR[%d]: ", count);
+    int index = 0;
+    for (index = 0; index < count; ++index)
+    {
+        printf_s("%c", myReceivedData[index]);
+    }
+
+    printf_s("\n\n");
+
+    return 0;
+}
